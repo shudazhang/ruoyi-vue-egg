@@ -47,7 +47,7 @@ module.exports = (appInfo) => {
     port: 3306,
     username: 'root',
     password: '123456',
-    database: 'egg_vue_starter',
+    database: 'ry-ui',
     define: {
       // paranoid: false, // 添加软删除
       freezeTableName: true, // 防止修改表名为复数
