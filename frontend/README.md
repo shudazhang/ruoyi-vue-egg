@@ -28,13 +28,3 @@ npm run build:stage
 # 构建生产环境
 npm run build:prod
 ```
-
-
-## 不同
-```
-login.vue 
-    this.codeUrl = "data:image/gif;base64,"
-    this.codeUrl = "data:image/svg+xml;base64,"
-
-
-```
