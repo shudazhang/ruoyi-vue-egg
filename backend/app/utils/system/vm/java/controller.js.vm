@@ -1,0 +1,109 @@
+const BaseController = require('../system/baseController.js')
+const ExcelJS = require('exceljs')
+
+/**
+ * ${functionName}操作处理
+ * 
+ * @author ruoyi
+ */
+class ${ClassName}Controller extends BaseController {
+  constructor(ctx) {
+    super(ctx)
+    this.${businessName}Service = this.ctx.service.${moduleName}.${className}Service
+  }
+  /**
+   * 获取${functionName}列表
+   */
+  async list() {
+    try {
+      const ${businessName} = this.ctx.query
+      const list = await this.${businessName}Service.select${BusinessName}List(${businessName})
+      this.ctx.body = this.getDataTable(list)
+    } catch (error) {
+      this.ctx.body = this.AjaxResult.error(error.message)
+    }
+  }
+  async export() {
+    try {
+      const  ${businessName} = this.ctx.request.body
+      let list = await this.${businessName}Service.select${BusinessName}List(${businessName})
+      list = JSON.parse(JSON.stringify(list))
+
+      // 创建工作簿
+      const workbook = new ExcelJS.Workbook()
+      const sheet = workbook.addWorksheet('${functionName}')
+      // 添加表头
+      const columns = []
+      for (const key in list.rows[0]) {
+        columns.push({ header: key, key: key })
+      }
+      sheet.columns = columns
+     
+
+      // 添加数据
+      list.rows.forEach((item) => {
+        sheet.addRow(item)
+      })
+
+      // 定义响应的形式
+      this.ctx.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+      this.ctx.set('Content-Disposition', `attachment; filename=${tableName}.xlsx`)
+
+      // 将Excel文件流输出到HTTP响应
+      // 使用 writeBuffer 方法并等待Promise完成
+      this.ctx.body = await workbook.xlsx.writeBuffer()
+      this.ctx.status = 200
+    } catch (error) {
+      this.ctx.body = this.AjaxResult.error(error.message)
+    }
+  }
+  /**
+   * 根据${functionName}编号获取详细信息
+   */
+  async getInfo() {
+    try {
+      const ${pkColumn.javaField} = this.ctx.params.${pkColumn.javaField}
+      this.ctx.body = this.success(await this.${businessName}Service.select${BusinessName}ById(${pkColumn.javaField}))
+    } catch (error) {
+      this.ctx.body = this.AjaxResult.error(error.message)
+    }
+  }
+
+  /**
+   * 新增${functionName}
+   */
+  async add() {
+    try {
+      const ${businessName} = this.ctx.request.body
+      ${businessName}.createBy = await this.getUsername()
+      this.ctx.body = this.toAjax(await this.${businessName}Service.insert${BusinessName}(${businessName}))
+    } catch (error) {
+      this.ctx.body = this.AjaxResult.error(error.message)
+    }
+  }
+  /**
+   * 修改${functionName}
+   */
+  async edit() {
+    try {
+      const ${businessName} = this.ctx.request.body
+      ${businessName}.updateBy = await this.getUsername()
+      this.ctx.body = this.toAjax(await this.${businessName}Service.update${BusinessName}(${businessName}))
+    } catch (error) {
+      this.ctx.body = this.AjaxResult.error(error.message)
+    }
+  }
+  /**
+   * 删除${functionName}
+   */
+  async remove() {
+    try {
+      const ${pkColumn.javaField}s = this.ctx.params.${pkColumn.javaField}s.split(',')
+      this.ctx.body = this.toAjax(await this.${businessName}Service.delete${BusinessName}ByIds(${pkColumn.javaField}s))
+    } catch (error) {
+      this.ctx.body = this.AjaxResult.error(error.message)
+    }
+  }
+}
+
+module.exports = ${ClassName}Controller

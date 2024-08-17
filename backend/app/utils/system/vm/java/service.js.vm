@@ -1,0 +1,63 @@
+const BaseService = require('../system/baseService.js')
+class ${ClassName}Service extends BaseService {
+  constructor(ctx) {
+    super(ctx)
+    this.${businessName}Mapper = this.ctx.service.${moduleName}.mapper.${className}Mapper
+  }
+  /**
+   * 查询${functionName}信息
+   *
+   * @param ${pkColumn.javaField} ${pkColumn.columnComment}
+   * @return ${functionName}信息
+   */
+  select${BusinessName}ById(${pkColumn.javaField}) {
+    return this.${businessName}Mapper.select${BusinessName}ById(${pkColumn.javaField})
+  }
+  /**
+   * 查询${functionName}列表
+   *
+   * @param ${businessName} ${functionName}信息
+   * @return ${functionName}集合
+   */
+  select${BusinessName}List(${businessName}) {
+    return this.${businessName}Mapper.select${BusinessName}List(${businessName})
+  }
+
+  /**
+   * 新增${functionName}
+   *
+   * @param ${businessName} ${functionName}信息
+   * @return 结果
+   */
+  insert${BusinessName}(${businessName}) {
+    return this.${businessName}Mapper.insert${BusinessName}(${businessName})
+  }
+  /**
+   * 修改${functionName}
+   *
+   * @param ${businessName} ${functionName}信息
+   * @return 结果
+   */
+  update${BusinessName}(${businessName}) {
+    return this.${businessName}Mapper.update${BusinessName}(${businessName})
+  }
+  /**
+   * 删除${functionName}对象
+   *
+   * @param ${pkColumn.javaField} ${pkColumn.columnComment}
+   * @return 结果
+   */
+  delete${BusinessName}ById(${pkColumn.javaField}) {
+    return this.${businessName}Mapper.delete${BusinessName}ById(${pkColumn.javaField})
+  }
+  /**
+   * 批量删除${functionName}信息
+   *
+   * @param ${pkColumn.javaField}s 需要删除的${pkColumn.columnComment}
+   * @return 结果
+   */
+  delete${BusinessName}ByIds(${pkColumn.javaField}s) {
+    return this.${businessName}Mapper.delete${BusinessName}ByIds(${pkColumn.javaField}s)
+  }
+}
+module.exports = ${ClassName}Service

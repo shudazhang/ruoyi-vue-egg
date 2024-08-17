@@ -1,0 +1,108 @@
+const { Service } = require('egg')
+
+class ${ClassName}Mapper extends Service {
+  /**
+   * 查询${functionName}
+   *
+   * @param ${pkColumn.javaField} ${pkColumn.columnComment}
+   * @return ${functionName}
+   */
+  select${BusinessName}ById(${pkColumn.javaField}) {
+    return this.app.model.${ModuleName}.${ClassName}.findOne({
+      where: {
+        ${pkColumn.javaField}: ${pkColumn.javaField}
+      }
+    })
+  }
+  /**
+   * 查询${functionName}列表
+   *
+   * @param ${businessName} ${functionName}
+   * @return ${functionName}集合
+   */
+  select${BusinessName}List(${businessName}) {
+    const params = {
+      where: {}
+    }
+
+    if (${businessName}.pageNum && ${businessName}.pageSize) {
+      params.offset = parseInt(((${businessName}.pageNum || 1) - 1) * (${businessName}.pageSize || 10))
+      params.limit = parseInt(${businessName}.pageSize || 10)
+    }
+#foreach($column in $table.columns)
+    #if($column.query)
+        #if($column.queryType == "LIKE")
+            if (${businessName}.${column.javaField}) {
+                params.where.${column.javaField} = {
+                    [this.app.Sequelize.Op.like]: `%${${businessName}.${column.javaField}}%`
+                }
+            }
+        #elseif($column.queryType == "EQ")
+            if (${businessName}.${column.javaField}) {
+                params.where.${column.javaField} = ${businessName}.${column.javaField}
+            }
+        #end
+    #end
+#end
+   
+
+    if (${businessName}.pageNum && ${businessName}.pageSize) {
+      return this.app.model.${ModuleName}.${ClassName}.findAndCountAll(params)
+    } else {
+      return this.app.model.${ModuleName}.${ClassName}.findAll(params)
+    }
+  }
+
+  /**
+   * 新增${functionName}
+   *
+   * @param ${businessName} ${functionName}
+   * @return 结果
+   */
+  insert${BusinessName}(${businessName}) {
+    return this.app.model.${ModuleName}.${ClassName}.create({ ...${businessName}, createTime: new Date() })
+  }
+  /**
+   * 修改${functionName}
+   *
+   * @param ${businessName} ${functionName}
+   * @return 结果
+   */
+  update${BusinessName}(${businessName}) {
+    return this.app.model.${ModuleName}.${ClassName}.update(
+      { ...${businessName}, updateTime: new Date() },
+      {
+        where: {
+          ${pkColumn.javaField}: ${businessName}.${pkColumn.javaField}
+        }
+      }
+    )
+  }
+  /**
+   * 批量删除${functionName}
+   *
+   * @param ${pkColumn.javaField} ${pkColumn.columnComment}
+   * @return 结果
+   */
+  delete${BusinessName}ById(${pkColumn.javaField}) {
+    return this.app.model.${ModuleName}.${ClassName}.destroy({
+      where: {
+        ${pkColumn.javaField}: ${pkColumn.javaField}
+      }
+    })
+  }
+  /**
+   * 批量删除${functionName}
+   *
+   * @param ${pkColumn.javaField}s 需要删除的${pkColumn.columnComment}
+   * @return 结果
+   */
+  delete${BusinessName}ByIds(${pkColumn.javaField}s) {
+    return this.app.model.${ModuleName}.${ClassName}.destroy({
+      where: {
+        ${pkColumn.javaField}: ${pkColumn.javaField}s
+      }
+    })
+  }
+}
+module.exports = ${ClassName}Mapper

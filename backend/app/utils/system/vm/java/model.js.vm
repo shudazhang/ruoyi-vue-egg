@@ -1,0 +1,11 @@
+'use strict'
+
+module.exports = (app) => {
+  const { DATE, STRING, CHAR, INTEGER, BLOB, BIGINT, TINYINT } = app.Sequelize
+  const ${ClassName} = app.model.define('${tableName}', {
+    #foreach ($column in $columns)
+      ${column.javaField}: { field: '${column.columnName}', type: ${column.eggJavaType}, primaryKey: ${column.pk},autoIncrement: ${column.increment},comment: '${column.columnComment}' },
+    #end
+  });
+  return ${ClassName}
+}

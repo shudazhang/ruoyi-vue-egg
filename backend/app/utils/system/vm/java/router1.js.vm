@@ -1,0 +1,6 @@
+router.get('/${moduleName}/${businessName}/list', jwtAuth(), hasPermi('${permissionPrefix}:list'), controller.${moduleName}.${className}Controller.list)
+router.get('/${moduleName}/${businessName}/:${pkColumn.javaField}', jwtAuth(), hasPermi('${permissionPrefix}:query'), controller.${moduleName}.${className}Controller.getInfo)
+router.post('/${moduleName}/${businessName}/export', jwtAuth(), hasPermi('${permissionPrefix}:export'), log('${functionName}', BusinessType.EXPORT, 'controller.${moduleName}.${className}Controller.export'), controller.${moduleName}.${className}Controller.export)
+router.post('/${moduleName}/${businessName}', jwtAuth(), hasPermi('${permissionPrefix}:add'), log('${functionName}', BusinessType.INSERT, 'controller.${moduleName}.${className}Controller.add'), controller.${moduleName}.${className}Controller.add)
+router.put('/${moduleName}/${businessName}', jwtAuth(), hasPermi('${permissionPrefix}:edit'), log('${functionName}', BusinessType.UPDATE, 'controller.${moduleName}.${className}Controller.edit'), controller.${moduleName}.${className}Controller.edit)
+router.delete('/${moduleName}/${businessName}/:${pkColumn.javaField}s', jwtAuth(), hasPermi('${permissionPrefix}:remove'), log('${functionName}', BusinessType.DELETE, 'controller.${moduleName}.${className}Controller.remove'), controller.${moduleName}.${className}Controller.remove)
