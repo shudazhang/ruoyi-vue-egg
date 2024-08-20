@@ -12,3 +12,25 @@ login.vue、register.vue
     修改为
     this.codeUrl = "data:image/svg+xml;base64,"
 ```
+
+## 本地启动项目
+```
+创建并导入数据库 ry-vue
+启动redis服务
+
+cd backend 
+npm install  --registry=https://registry.npmmirror.com
+npm run dev
+
+cd frontend 
+npm install  --registry=https://registry.npmmirror.com
+npm run dev
+
+浏览器打开: http://localhost:7009
+```
+
+## 默认账号密码
+```
+admin/admin123
+ry/admin123
+```
