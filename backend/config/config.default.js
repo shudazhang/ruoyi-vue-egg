@@ -24,7 +24,7 @@ module.exports = (appInfo) => {
   }
   config.static = {
     prefix: '/profile/',
-    dir: path.join(__dirname, '../app/public')
+    dir: path.join(__dirname, '../app/public/profile')
   }
   config.bodyParser = {
     formLimit: '30mb',
@@ -82,15 +82,15 @@ module.exports = (appInfo) => {
       // 版权年份
       copyrightYear: 2024,
       // 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-      profile: path.join(__dirname, '../app/public'),
+      profile: path.join(__dirname, '../app/public/profile'),
       // 获取ip地址开关
       addressEnabled: false,
       // 验证码类型 math 数字计算 char 字符验证
       captchaType: 'math',
-      avatarPath: `${path.join(__dirname, '../app/public')}/avatar`,
-      importPath: `${path.join(__dirname, '../app/public')}/import`,
-      downloadPath: `${path.join(__dirname, '../app/public')}/download/`,
-      uploadPath: `${path.join(__dirname, '../app/public')}/upload`
+      avatarPath: `${path.join(__dirname, '../app/public/profile')}/avatar`,
+      importPath: `${path.join(__dirname, '../app/public/profile')}/import`,
+      downloadPath: `${path.join(__dirname, '../app/public/profile')}/download/`,
+      uploadPath: `${path.join(__dirname, '../app/public/profile')}/upload`
     },
     // 用户配置
     user: {
