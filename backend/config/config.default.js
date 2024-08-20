@@ -1,5 +1,5 @@
 /* eslint valid-jsdoc: "off" */
-
+const path = require('path')
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -24,7 +24,7 @@ module.exports = (appInfo) => {
   }
   config.static = {
     prefix: '/profile/',
-    dir: 'D:/ruoyi/uploadPath'
+    dir: path.join(__dirname, '../app/public')
   }
   config.bodyParser = {
     formLimit: '30mb',
@@ -82,15 +82,15 @@ module.exports = (appInfo) => {
       // 版权年份
       copyrightYear: 2024,
       // 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-      profile: 'D:/ruoyi/uploadPath',
+      profile: path.join(__dirname, '../app/public'),
       // 获取ip地址开关
       addressEnabled: false,
       // 验证码类型 math 数字计算 char 字符验证
       captchaType: 'math',
-      avatarPath: 'D:/ruoyi/uploadPath/avatar',
-      importPath: 'D:/ruoyi/uploadPath/import',
-      downloadPath: 'D:/ruoyi/uploadPath/download/',
-      uploadPath: 'D:/ruoyi/uploadPath/upload'
+      avatarPath: `${path.join(__dirname, '../app/public')}/avatar`,
+      importPath: `${path.join(__dirname, '../app/public')}/import`,
+      downloadPath: `${path.join(__dirname, '../app/public')}/download/`,
+      uploadPath: `${path.join(__dirname, '../app/public')}/upload`
     },
     // 用户配置
     user: {
