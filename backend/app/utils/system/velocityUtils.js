@@ -109,10 +109,10 @@ class VelocityUtils {
     context.treeParentCode = this.getTreeParentCode(paramsObj)
     context.treeName = this.getTreeName(paramsObj)
     context.expandColumn = this.getExpandColumn(genTable)
-    if (paramsObj?.hasOwnProperty(GenConstants.TREE_PARENT_CODE)) {
+    if (paramsObj && paramsObj.hasOwnProperty(GenConstants.TREE_PARENT_CODE)) {
       context.tree_parent_code = paramsObj[GenConstants.TREE_PARENT_CODE]
     }
-    if (paramsObj?.hasOwnProperty(GenConstants.TREE_NAME)) {
+    if (paramsObj && paramsObj.hasOwnProperty(GenConstants.TREE_NAME)) {
       context.tree_name = paramsObj[GenConstants.TREE_NAME]
     }
   }
@@ -348,7 +348,7 @@ class VelocityUtils {
    * @return {string} 父菜单ID
    */
   static getParentMenuId(paramsObj) {
-    return paramsObj?.hasOwnProperty('parentMenuId') ? paramsObj.parentMenuId : this.DEFAULT_PARENT_MENU_ID
+    return paramsObj && paramsObj.hasOwnProperty('parentMenuId') ? paramsObj.parentMenuId : this.DEFAULT_PARENT_MENU_ID
   }
 
   /**
@@ -358,7 +358,7 @@ class VelocityUtils {
    * @return {string} code字段
    */
   static getTreecode(paramsObj) {
-    return paramsObj?.hasOwnProperty('treeCode') ? paramsObj.treeCode : 'id'
+    return paramsObj && paramsObj.hasOwnProperty('treeCode') ? paramsObj.treeCode : 'id'
   }
 
   /**
@@ -368,7 +368,7 @@ class VelocityUtils {
    * @return {string} parentCode字段
    */
   static getTreeParentCode(paramsObj) {
-    return paramsObj?.hasOwnProperty('treeParentCode') ? paramsObj.treeParentCode : 'parentId'
+    return paramsObj && paramsObj.hasOwnProperty('treeParentCode') ? paramsObj.treeParentCode : 'parentId'
   }
 
   /**
@@ -378,7 +378,7 @@ class VelocityUtils {
    * @return {string} name字段
    */
   static getTreeName(paramsObj) {
-    return paramsObj?.hasOwnProperty('treeName') ? paramsObj.treeName : 'name'
+    return paramsObj && paramsObj.hasOwnProperty('treeName') ? paramsObj.treeName : 'name'
   }
 
   /**
@@ -390,7 +390,7 @@ class VelocityUtils {
   static getExpandColumn(genTable) {
     const options = genTable.options
     const paramsObj = JSON.parse(options)
-    return paramsObj?.hasOwnProperty('expandColumn') ? paramsObj.expandColumn : null
+    return paramsObj && paramsObj.hasOwnProperty('expandColumn') ? paramsObj.expandColumn : null
   }
 }
 

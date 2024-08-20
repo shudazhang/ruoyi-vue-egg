@@ -15,6 +15,10 @@ login.vue、register.vue
 
 ## 本地启动项目
 ```
+mysql:5.7.28
+redis:5.0.14
+node:16.20.2
+
 创建并导入数据库 ry-vue
 启动redis服务
 
@@ -33,4 +37,14 @@ npm run dev
 ```
 admin/admin123
 ry/admin123
+```
+
+## 定时任务
+```
+任务名称: 测试任务
+任务分组：默认
+调用方法:  ctx.service.system.sysTaskService.testTask()
+corn: */2 * * * * ?
+执行策略: 放弃执行 （计划执行错误策略未实现，无论执行结果到时间依然执行）
+状态开启后 每2秒执行一次
 ```
