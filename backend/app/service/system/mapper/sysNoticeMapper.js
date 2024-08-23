@@ -25,25 +25,25 @@ class SysNoticeMapper extends Service {
       where: {}
     }
 
-    if (notice.pageNum && notice.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + notice.pageNum) && !['undefined', 'null', ''].includes('' + notice.pageSize)) {
       params.offset = parseInt(((notice.pageNum || 1) - 1) * (notice.pageSize || 10))
       params.limit = parseInt(notice.pageSize || 10)
     }
-    if (notice.noticeTitle) {
+    if (!['undefined', 'null', ''].includes('' + notice.noticeTitle)) {
       params.where.noticeTitle = {
         [this.app.Sequelize.Op.like]: `%${notice.noticeTitle}%`
       }
     }
-    if (notice.noticeType) {
+    if (!['undefined', 'null', ''].includes('' + notice.noticeType)) {
       params.where.noticeType = notice.noticeType
     }
-    if (notice.createBy) {
+    if (!['undefined', 'null', ''].includes('' + notice.createBy)) {
       params.where.createBy = {
         [this.app.Sequelize.Op.like]: `%${notice.createBy}%`
       }
     }
 
-    if (notice.pageNum && notice.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + notice.pageNum) && !['undefined', 'null', ''].includes('' + notice.pageSize)) {
       return this.app.model.System.SysNotice.findAndCountAll(params)
     } else {
       return this.app.model.System.SysNotice.findAll(params)

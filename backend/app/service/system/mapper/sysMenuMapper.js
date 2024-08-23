@@ -15,11 +15,11 @@ class SysMenuMapper extends Service {
         ['orderNum', 'ASC']
       ]
     }
-    if (menu.pageNum && menu.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + menu.pageNum) && !['undefined', 'null', ''].includes('' + menu.pageSize)) {
       params.offset = parseInt(((menu.pageNum || 1) - 1) * (menu.pageSize || 10))
       params.limit = parseInt(menu.pageSize || 10)
     }
-    if (menu.menuName) {
+    if (!['undefined', 'null', ''].includes('' + menu.menuName)) {
       params.where.menuName = {
         [this.app.Sequelize.Op.like]: `%${menu.menuName}%`
       }
@@ -30,7 +30,7 @@ class SysMenuMapper extends Service {
     if (!['undefined', 'null', ''].includes('' + menu.status)) {
       params.where.status = menu.status
     }
-    if (menu.pageNum && menu.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + menu.pageNum) && !['undefined', 'null', ''].includes('' + menu.pageSize)) {
       return this.app.model.System.SysMenu.findAndCountAll(params)
     } else {
       return this.app.model.System.SysMenu.findAll(params)
@@ -85,11 +85,11 @@ class SysMenuMapper extends Service {
         ['orderNum', 'ASC']
       ]
     }
-    if (menu.pageNum && menu.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + menu.pageNum) && !['undefined', 'null', ''].includes('' + menu.pageSize)) {
       params.offset = parseInt(((menu.pageNum || 1) - 1) * (menu.pageSize || 10))
       params.limit = parseInt(menu.pageSize || 10)
     }
-    if (menu.menuName) {
+    if (!['undefined', 'null', ''].includes('' + menu.menuName)) {
       params.where.menuName = {
         [this.app.Sequelize.Op.like]: `%${menu.menuName}%`
       }
@@ -100,7 +100,7 @@ class SysMenuMapper extends Service {
     if (!['undefined', 'null', ''].includes('' + menu.status)) {
       params.where.status = menu.status
     }
-    if (menu.pageNum && menu.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + menu.pageNum) && !['undefined', 'null', ''].includes('' + menu.pageSize)) {
       return this.app.model.System.SysMenu.findAndCountAll(params)
     } else {
       return this.app.model.System.SysMenu.findAll(params)

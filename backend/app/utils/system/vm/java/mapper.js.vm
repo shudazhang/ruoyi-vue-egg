@@ -25,20 +25,20 @@ class ${ClassName}Mapper extends Service {
       where: {}
     }
 
-    if (${businessName}.pageNum && ${businessName}.pageSize) {
+    if (!['undefined', 'null', ''].includes('' +${businessName}.pageNum) && !['undefined', 'null', ''].includes('' +${businessName}.pageSize)) {
       params.offset = parseInt(((${businessName}.pageNum || 1) - 1) * (${businessName}.pageSize || 10))
       params.limit = parseInt(${businessName}.pageSize || 10)
     }
 #foreach($column in $table.columns)
     #if($column.query)
         #if($column.queryType == "LIKE")
-            if (${businessName}.${column.javaField}) {
+            if (!['undefined', 'null', ''].includes('' +${businessName}.${column.javaField})) {
                 params.where.${column.javaField} = {
                     [this.app.Sequelize.Op.like]: `%${${businessName}.${column.javaField}}%`
                 }
             }
         #elseif($column.queryType == "EQ")
-            if (${businessName}.${column.javaField}) {
+            if (!['undefined', 'null', ''].includes('' +${businessName}.${column.javaField})) {
                 params.where.${column.javaField} = ${businessName}.${column.javaField}
             }
         #end
@@ -46,7 +46,7 @@ class ${ClassName}Mapper extends Service {
 #end
    
 
-    if (${businessName}.pageNum && ${businessName}.pageSize) {
+    if (!['undefined', 'null', ''].includes('' +${businessName}.pageNum) && !['undefined', 'null', ''].includes('' +${businessName}.pageSize)) {
       return this.app.model.${ModuleName}.${ClassName}.findAndCountAll(params)
     } else {
       return this.app.model.${ModuleName}.${ClassName}.findAll(params)

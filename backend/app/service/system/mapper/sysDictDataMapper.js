@@ -12,14 +12,14 @@ class SysDictDataMapper extends Service {
       where: {},
       order: [['dictSort', 'ASC']]
     }
-    if (dictData.pageNum && dictData.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + dictData.pageNum) && !['undefined', 'null', ''].includes('' + dictData.pageSize)) {
       params.offset = parseInt(((dictData.pageNum || 1) - 1) * (dictData.pageSize || 10))
       params.limit = parseInt(dictData.pageSize || 10)
     }
-    if (dictData.dictType) {
+    if (!['undefined', 'null', ''].includes('' + dictData.dictType)) {
       params.where.dictType = dictData.dictType
     }
-    if (dictData.dictLabel) {
+    if (!['undefined', 'null', ''].includes('' + dictData.dictLabel)) {
       params.where.dictLabel = {
         [this.app.Sequelize.Op.like]: `%${dictData.dictLabel}%`
       }
@@ -27,7 +27,7 @@ class SysDictDataMapper extends Service {
     if (!['undefined', 'null', ''].includes('' + dictData.status)) {
       params.where.status = dictData.status
     }
-    if (dictData.pageNum && dictData.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + dictData.pageNum) && !['undefined', 'null', ''].includes('' + dictData.pageSize)) {
       return this.app.model.System.SysDictData.findAndCountAll(params)
     } else {
       return this.app.model.System.SysDictData.findAll(params)

@@ -11,28 +11,28 @@ class SysJobMapper extends Service {
     const params = {
       where: {}
     }
-    if (job.pageNum && job.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + job.pageNum) && !['undefined', 'null', ''].includes('' + job.pageSize)) {
       params.offset = parseInt(((job.pageNum || 1) - 1) * (job.pageSize || 10))
       params.limit = parseInt(job.pageSize || 10)
     }
 
-    if (job.jobName) {
+    if (!['undefined', 'null', ''].includes('' + job.jobName)) {
       params.where.jobName = {
         [this.app.Sequelize.Op.like]: `%${job.jobName}%`
       }
     }
-    if (job.jobGroup) {
+    if (!['undefined', 'null', ''].includes('' + job.jobGroup)) {
       params.where.jobGroup = job.jobGroup
     }
     if (!['undefined', 'null', ''].includes('' + job.status)) {
       params.where.status = job.status
     }
-    if (job.invokeTarget) {
+    if (!['undefined', 'null', ''].includes('' + job.invokeTarget)) {
       params.where.invokeTarget = {
         [this.app.Sequelize.Op.like]: `%${job.invokeTarget}%`
       }
     }
-    if (job.pageNum && job.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + job.pageNum) && !['undefined', 'null', ''].includes('' + job.pageSize)) {
       return this.app.model.System.SysJob.findAndCountAll(params)
     } else {
       return this.app.model.System.SysJob.findAll(params)

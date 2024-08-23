@@ -11,16 +11,16 @@ class GenTableMapper extends Service {
     const params = {
       where: {}
     }
-    if (genTable.pageNum && genTable.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + genTable.pageNum) && !['undefined', 'null', ''].includes('' + genTable.pageSize)) {
       params.offset = parseInt(((genTable.pageNum || 1) - 1) * (genTable.pageSize || 10))
       params.limit = parseInt(genTable.pageSize || 10)
     }
-    if (genTable.tableName) {
+    if (!['undefined', 'null', ''].includes('' + genTable.tableName)) {
       params.where.tableName = {
         [this.app.Sequelize.Op.like]: `%${genTable.tableName}%`
       }
     }
-    if (genTable.tableComment) {
+    if (!['undefined', 'null', ''].includes('' + genTable.tableComment)) {
       params.where.tableComment = {
         [this.app.Sequelize.Op.like]: `%${genTable.tableComment}%`
       }
@@ -35,7 +35,7 @@ class GenTableMapper extends Service {
         [this.app.Sequelize.Op.between]: [new Date(genTable.params.beginTime + ' 00:00:00').toISOString().slice(0, 10), new Date(genTable.params.endTime + ' 23:59:59').toISOString().slice(0, 10)]
       }
     }
-    if (genTable.pageNum && genTable.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + genTable.pageNum) && !['undefined', 'null', ''].includes('' + genTable.pageSize)) {
       return this.app.model.System.GenTable.findAndCountAll(params)
     } else {
       return this.app.model.System.GenTable.findAll(params)

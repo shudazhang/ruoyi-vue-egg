@@ -12,22 +12,22 @@ class SysJobLogMapper extends Service {
       where: {}
     }
 
-    if (jobLog.pageNum && jobLog.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + jobLog.pageNum) && !['undefined', 'null', ''].includes('' + jobLog.pageSize)) {
       params.offset = parseInt(((jobLog.pageNum || 1) - 1) * (jobLog.pageSize || 10))
       params.limit = parseInt(jobLog.pageSize || 10)
     }
-    if (jobLog.jobName) {
+    if (!['undefined', 'null', ''].includes('' + jobLog.jobName)) {
       params.where.jobName = {
         [this.app.Sequelize.Op.like]: `%${jobLog.jobName}%`
       }
     }
-    if (jobLog.jobGroup) {
+    if (!['undefined', 'null', ''].includes('' + jobLog.jobGroup)) {
       params.where.jobGroup = jobLog.jobGroup
     }
     if (!['undefined', 'null', ''].includes('' + jobLog.status)) {
       params.where.status = jobLog.status
     }
-    if (jobLog.invokeTarget) {
+    if (!['undefined', 'null', ''].includes('' + jobLog.invokeTarget)) {
       params.where.invokeTarget = {
         [this.app.Sequelize.Op.like]: `%${jobLog.invokeTarget}%`
       }
@@ -42,7 +42,7 @@ class SysJobLogMapper extends Service {
         [this.app.Sequelize.Op.between]: [new Date(jobLog.params.beginTime + ' 00:00:00').toISOString().slice(0, 10), new Date(jobLog.params.endTime + ' 23:59:59').toISOString().slice(0, 10)]
       }
     }
-    if (jobLog.pageNum && jobLog.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + jobLog.pageNum) && !['undefined', 'null', ''].includes('' + jobLog.pageSize)) {
       return this.app.model.System.SysJobLog.findAndCountAll(params)
     } else {
       return this.app.model.System.SysJobLog.findAll(params)

@@ -11,11 +11,11 @@ class SysDictTypeMapper extends Service {
     const params = {
       where: {}
     }
-    if (dictType.pageNum && dictType.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + dictType.pageNum) && !['undefined', 'null', ''].includes('' + dictType.pageSize)) {
       params.offset = parseInt(((dictType.pageNum || 1) - 1) * (dictType.pageSize || 10))
       params.limit = parseInt(dictType.pageSize || 10)
     }
-    if (dictType.dictName) {
+    if (!['undefined', 'null', ''].includes('' + dictType.dictName)) {
       params.where.dictName = {
         [this.app.Sequelize.Op.like]: `%${dictType.dictName}%`
       }
@@ -23,7 +23,7 @@ class SysDictTypeMapper extends Service {
     if (!['undefined', 'null', ''].includes('' + dictType.status)) {
       params.where.status = dictType.status
     }
-    if (dictType.dictType) {
+    if (!['undefined', 'null', ''].includes('' + dictType.dictType)) {
       params.where.dictType = {
         [this.app.Sequelize.Op.like]: `%${dictType.dictType}%`
       }
@@ -38,7 +38,7 @@ class SysDictTypeMapper extends Service {
         [this.app.Sequelize.Op.between]: [new Date(dictType.params.beginTime + ' 00:00:00').toISOString().slice(0, 10), new Date(dictType.params.endTime + ' 23:59:59').toISOString().slice(0, 10)]
       }
     }
-    if (dictType.pageNum && dictType.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + dictType.pageNum) && !['undefined', 'null', ''].includes('' + dictType.pageSize)) {
       return this.app.model.System.SysDictType.findAndCountAll(params)
     } else {
       return this.app.model.System.SysDictType.findAll(params)

@@ -12,11 +12,11 @@ class SysPostMapper extends Service {
       where: {}
     }
 
-    if (post.pageNum && post.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + post.pageNum) && !['undefined', 'null', ''].includes('' + post.pageSize)) {
       params.offset = parseInt(((post.pageNum || 1) - 1) * (post.pageSize || 10))
       params.limit = parseInt(post.pageSize || 10)
     }
-    if (post.postCode) {
+    if (!['undefined', 'null', ''].includes('' + post.postCode)) {
       params.where.postCode = {
         [this.app.Sequelize.Op.like]: `%${post.postCode}%`
       }
@@ -24,13 +24,13 @@ class SysPostMapper extends Service {
     if (!['undefined', 'null', ''].includes('' + post.status)) {
       params.where.status = post.status
     }
-    if (post.postName) {
+    if (!['undefined', 'null', ''].includes('' + post.postName)) {
       params.where.postName = {
         [this.app.Sequelize.Op.like]: `%${post.postName}%`
       }
     }
 
-    if (post.pageNum && post.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + post.pageNum) && !['undefined', 'null', ''].includes('' + post.pageSize)) {
       return this.app.model.System.SysPost.findAndCountAll(params)
     } else {
       return this.app.model.System.SysPost.findAll(params)

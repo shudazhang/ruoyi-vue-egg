@@ -21,11 +21,11 @@ class SysLogininforMapper extends Service {
       where: {},
       order: [['infoId', 'DESC']]
     }
-    if (logininfor.pageNum && logininfor.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + logininfor.pageNum) && !['undefined', 'null', ''].includes('' + logininfor.pageSize)) {
       params.offset = parseInt(((logininfor.pageNum || 1) - 1) * (logininfor.pageSize || 10))
       params.limit = parseInt(logininfor.pageSize || 10)
     }
-    if (logininfor.ipaddr) {
+    if (!['undefined', 'null', ''].includes('' + logininfor.ipaddr)) {
       params.where.ipaddr = {
         [this.app.Sequelize.Op.like]: `%${logininfor.ipaddr}%`
       }
@@ -34,7 +34,7 @@ class SysLogininforMapper extends Service {
       params.where.status = logininfor.status
     }
 
-    if (logininfor.userName) {
+    if (!['undefined', 'null', ''].includes('' + logininfor.userName)) {
       params.where.userName = {
         [this.app.Sequelize.Op.like]: `%${logininfor.userName}%`
       }
@@ -49,7 +49,7 @@ class SysLogininforMapper extends Service {
         [this.app.Sequelize.Op.between]: [new Date(logininfor.params.beginTime + ' 00:00:00').toISOString().slice(0, 10), new Date(logininfor.params.endTime + ' 23:59:59').toISOString().slice(0, 10)]
       }
     }
-    if (logininfor.pageNum && logininfor.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + logininfor.pageNum) && !['undefined', 'null', ''].includes('' + logininfor.pageSize)) {
       return this.app.model.System.SysLogininfor.findAndCountAll(params)
     } else {
       return this.app.model.System.SysLogininfor.findAll(params)

@@ -11,10 +11,10 @@ class SysConfigMapper extends Service {
     const params = {
       where: {}
     }
-    if (config.configId) {
+    if (!['undefined', 'null', ''].includes('' + config.configId)) {
       params.where.configId = config.configId
     }
-    if (config.configKey) {
+    if (!['undefined', 'null', ''].includes('' + config.configKey)) {
       params.where.configKey = config.configKey
     }
     return this.app.model.System.SysConfig.findOne(params)
@@ -43,19 +43,19 @@ class SysConfigMapper extends Service {
       where: {}
     }
 
-    if (config.pageNum && config.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + config.pageNum) && !['undefined', 'null', ''].includes('' + config.pageSize)) {
       params.offset = parseInt(((config.pageNum || 1) - 1) * (config.pageSize || 10))
       params.limit = parseInt(config.pageSize || 10)
     }
-    if (config.configName) {
+    if (!['undefined', 'null', ''].includes('' + config.configName)) {
       params.where.configName = {
         [this.app.Sequelize.Op.like]: `%${config.configName}%`
       }
     }
-    if (config.configType) {
+    if (!['undefined', 'null', ''].includes('' + config.configType)) {
       params.where.configType = config.configType
     }
-    if (config.configKey) {
+    if (!['undefined', 'null', ''].includes('' + config.configKey)) {
       params.where.configKey = {
         [this.app.Sequelize.Op.like]: `%${config.configKey}%`
       }
@@ -70,7 +70,7 @@ class SysConfigMapper extends Service {
         [this.app.Sequelize.Op.between]: [new Date(config.params.beginTime + ' 00:00:00').toISOString().slice(0, 10), new Date(config.params.endTime + ' 23:59:59').toISOString().slice(0, 10)]
       }
     }
-    if (config.pageNum && config.pageSize) {
+    if (!['undefined', 'null', ''].includes('' + config.pageNum) && !['undefined', 'null', ''].includes('' + config.pageSize)) {
       return this.app.model.System.SysConfig.findAndCountAll(params)
     } else {
       return this.app.model.System.SysConfig.findAll(params)
