@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "@semi": "结尾是否使用分号",
+  "semi": false,
+  "@tabWidth": "一个制表符等于的空格数",
+  "tabWidth": 2,
+  "@singleQuote": "是否使用单引号而不是双引号",
+  "singleQuote": true,
+  "@printWidth": "指定每行应该保持多少字符以内，超过后会进行换行",
+  "printWidth": 1000,
+  "@trailingComma": "尽可能在多行逗号分隔的句法结构中打印尾随逗号。（例如，单行数组永远不会出现尾随逗号",
+  "trailingComma": "none"
+}
